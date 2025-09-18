@@ -1,7 +1,8 @@
 const styles = `
 :host {
   align-items: center;
-  background-color: var(--light-gray);
+  background-color: var(--lighter-gray);
+  border: 1px solid var(--dark-gray);
   cursor: pointer;
   display: inline-flex;
   font-weight: 500;
@@ -57,7 +58,7 @@ const styles = `
 
 @media screen and (hover: hover) {
   :host(:not(:state(busy)):not(:state(disabled)):hover) {
-    background-color: var(--gray);
+    background-color: var(--light-gray);
   }
 
   :host(:state(inverted):not(:state(busy)):not(:state(disabled)):hover) {

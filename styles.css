@@ -38,12 +38,13 @@ a {
   color: var(--dark-gray);
   text-decoration-color: var(--gray);
   text-underline-offset: 2px;
+  text-decoration-thickness: 2px;
 }
 
 blockquote {
   border-left: var(--tiny) solid var(--dark-gray);
   margin-left: 0;
-  padding-left: var(--small);
+  padding-left: var(--medium);
 }
 
 body {
@@ -54,15 +55,27 @@ body {
 }
 
 button {
-  appearance: none;
-  background-color: var(--light-gray);
+  align-items: center;
+  background-color: var(--lighter-gray);
+  border: 1px solid var(--dark-gray);
   cursor: pointer;
-  font-family: var(--didone-fonts);
-  font-size: inherit;
-  margin: 0;
+  display: inline-flex;
+  font-family: var(--system-fonts);
+  font-size: 1em;
+  font-weight: 500;
+  justify-content: center;
   min-height: var(--min-control-height);
   min-width: var(--min-control-height);
   padding: var(--small) var(--medium);
+  position: relative;
+  transition: background-color var(--fast),
+    border-color var(--fast),
+    color var(--slow);
+
+  &:disabled {
+    color: var(--gray);
+    cursor: not-allowed;
+  }
 }
 
 code {
@@ -98,6 +111,10 @@ h3 {
   font-size: 1.618rem;
   letter-spacing: -0.5px;
   margin: var(--medium) 0 0;
+
+  h2 + & {
+    margin-top: 0;
+  }
 }
 
 hr {
@@ -106,6 +123,50 @@ hr {
   height: 1px;
   margin: var(--medium) auto 0;
   max-width: calc(100% - 2 * var(--huge));
+}
+
+input[type="checkbox"] {
+  appearance: none;
+  background-color: var(--lighter-gray);
+  border: 1px solid var(--dark-gray);
+  height: 0.75rem;
+  width: 0.75rem;
+
+  &:checked {
+    background-color: var(--black);
+    border-color: var(--black);
+  }
+}
+
+input[type="text"] {
+  appearance: none;
+  background-color: var(--lighter-gray);
+  border: 1px solid var(--dark-gray);
+  border-radius: var(--tiny);
+  color: var(--black);
+  display: inline-block;
+  font-family: var(--system-fonts);
+  font-size: 1em;
+  min-height: var(--min-control-height);
+  outline: none;
+  padding: 0 var(--medium);
+  width: 100%;
+
+  &::placeholder {
+    color: var(--dark-gray);
+    font-family: var(--didone-fonts);
+    font-size: 1.125em;
+    font-style: italic;
+  }
+
+  &:disabled {
+    color: var(--dark-gray);
+    cursor: not-allowed;
+  }
+
+  &:focus {
+    border-color: var(--black);
+  }
 }
 
 li {
@@ -132,8 +193,7 @@ p {
 }
 
 pre {
-  background-color: var(--lighter-gray);
-  border: 1px solid var(--black);
+  background-color: var(--light-gray);
   font-family: var(--code-fonts);
   font-size: 0.85rem;
   margin: var(--medium) auto 0;
@@ -157,10 +217,16 @@ ul {
 
 .didactic {
   font-family: var(--didone-fonts);
+  font-size: 1.125em;
 }
 
 @media screen and (hover: hover) {
   a:hover {
     text-decoration-color: var(--dark-gray);
+  }
+
+  button:not(:disabled):hover {
+    background-color: var(--light-gray);
+    border-color: var(--black);
   }
 }

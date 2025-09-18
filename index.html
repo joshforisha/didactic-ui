@@ -6,12 +6,6 @@
     <meta name="theme-color" content="#FFFFFF" />
     <meta name="viewport" content="initial-scale=1, width=device-width" />
     <title>Didactic Components</title>
-    <!--
-    <link rel="icon" href="/favicon.ico" sizes="any" />
-    <link rel="icon" href="/icon.svg" type="image/svg+xml" />
-    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
-    <link rel="manifest" href="/manifest.json" />
-    -->
     <link rel="stylesheet" href="./styles.css" />
     <script src="./di-button.js" type="module"></script>
     <script src="./di-figure.js" type="module"></script>
@@ -23,13 +17,24 @@
         display: flex;
         justify-content: space-between;
 
+        & > a:not(:hover) {
+          text-decoration: none;
+        }
+
         code {
           font-size: 0.5em;
         }
       }
 
+      label {
+        align-items: center;
+        column-gap: var(--tiny);
+        cursor: pointer;
+        display: inline-flex;
+      }
+
       section:last-of-type {
-        margin-bottom: var(--huge);
+        margin-bottom: var(--large);
       }
 
       .row {
@@ -42,8 +47,20 @@
       <h1>Didactic UI</h1>
       <blockquote><em class="didactic">di&middot;dac&middot;tic</em>, adjective; designed or intended to teach</blockquote>
       <h2>What is this?</h2>
-      <p><span class="didactic">Didactic UI</span> is a lightweight design framework composed of some baseline CSS and accompanying web components. To use it, you'll first need to include the base <a href="./styles.css">styles.css stylesheet</a>.</p>
+      <p><span class="didactic">Didactic UI</span> is a lightweight design framework composed of some baseline CSS and accompanying web components. To use it, you'll first need to include the <a href="./styles.css">base stylesheet</a>.</p>
       <p>Below are working examples of the web components. For each, include (via <code>&lt;script&gt;</code> or <code>import</code>) the noted <code>Source</code> script to use.</p>
+    </section>
+    <hr />
+    <section id="elements">
+      <h2><a href="#elements">Base Elements</a></h2>
+      <h3>Button</h3>
+      <div>
+        <button>Default button</button>
+      </div>
+      <h3>Text Input</h3>
+      <div>
+        <input placeholder="Enter some text" type="text" />
+      </div>
     </section>
     <hr />
     <section id="di-button">
