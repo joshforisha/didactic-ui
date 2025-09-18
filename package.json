@@ -1,0 +1,8 @@
+{
+  "private": true,
+  "prettier": {
+    "semi": false,
+    "singleQuote": true,
+    "trailingComma": "none"
+  }
+}

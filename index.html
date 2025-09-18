@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="description" content="Didactic design framework and web components" />
+    <meta name="theme-color" content="#FFFFFF" />
+    <meta name="viewport" content="initial-scale=1, width=device-width" />
+    <title>Didactic Components</title>
+    <!--
+    <link rel="icon" href="/favicon.ico" sizes="any" />
+    <link rel="icon" href="/icon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/manifest.json" />
+    -->
+    <link rel="stylesheet" href="/styles.css" />
+    <script src="/di-button.js" type="module"></script>
+    <script src="/di-figure.js" type="module"></script>
+  </head>
+  <body>
+    <style>
+      h2 {
+        align-items: baseline;
+        display: flex;
+        justify-content: space-between;
+
+        code {
+          font-size: 0.5em;
+        }
+      }
+
+      section:last-of-type {
+        margin-bottom: var(--huge);
+      }
+
+      .row {
+        column-gap: var(--small);
+        display: flex;
+        margin-top: var(--medium);
+      }
+    </style>
+    <section>
+      <h1>Didactic UI</h1>
+      <blockquote><em class="didactic">di&middot;dac&middot;tic</em>, adjective; designed or intended to teach</blockquote>
+      <h2>What is this?</h2>
+      <p><span class="didactic">Didactic UI</span> is a lightweight design framework composed of some baseline CSS and accompanying web components. To use it, you'll first need to include the base <a href="/styles.css">styles.css stylesheet</a>.</p>
+      <p>Below are working examples of the web components. For each, include (via <code>&lt;script&gt;</code> or <code>import</code>) the noted <code>Source</code> script to use.</p>
+    </section>
+    <hr />
+    <section id="di-button">
+      <h2><a href="#di-button">di-button</a> <code><a href="/di-button.js">Source</a></code></h2>
+      <p>The <code>di-button</code> component enhances the standard <code>button</code> element, enabling control over action states.</p>
+      <pre data-source="di-button"></pre>
+      <div class="row">
+        <di-button data-example="di-button">Example button</di-button>
+      </div>
+      <h3>Attributes</h3>
+      <ul>
+        <li><label><input data-property="busy" data-target="di-button" type="checkbox" /> <code>busy</code></label>: displays pending bars atop the button's content, and disables interaction</li>
+        <li><label><input data-property="disabled" data-target="di-button" type="checkbox" /> <code>disabled</code></label> as the default <code>button</code> attribute</li>
+        <li><label><input data-property="inverted" data-target="di-button" type="checkbox" /> <code>inverted</code></label>: inverts colors for maximum contrast with the effective color scheme</li>
+        <li><code>type</code> as the default <code>button</code> attribute</li>
+      </ul>
+    </section>
+    <hr />
+    <section id="di-figure">
+      <h2><a href="#di-figure">di-figure</a><code><a href="/di-figure.js">Source</a></code></h2>
+      <p>A <code>di-figure</code> is used to display an image alongside formatted information.</p>
+      <di-figure
+        alt="A placeholder cat"
+        heading="Louie"
+        height="200"
+        src="https://placecats.com/louie/400/200"
+        width="400"
+      >A lazy cat, relaxing with his mouse toy.</di-figure>
+      <h3>Attributes</h3>
+      <ul>
+        <li><code>alt</code> as the value for the image's alt text</li>
+        <li><code>height</code> as the value for the image's height</li>
+        <li><code>heading</code>: the displayed primary heading for the figure (<code>"Louie"</code> in example above)</li>
+        <li><code>src</code> as the source value for the image</li>
+        <li>Content within the tag becomes the description under the <code>heading</code></li>
+      </ul>
+    </section>
+    <script>
+      function filteredHTML(element) {
+        return element.outerHTML
+          .replace(/ data-example="[^"]*"/, '')
+          .replace(/=""/g, '')
+      }
+
+      document.querySelectorAll('pre[data-source]').forEach((pre) => {
+        const exampleName = pre.getAttribute('data-source')
+        const example = document.querySelector(`[data-example="${exampleName}"]`)
+        pre.textContent = filteredHTML(example)
+      })
+
+      document.querySelectorAll('input[data-property][data-target][type="checkbox"]').forEach((control) => {
+        control.addEventListener('change', (event) => {
+          const targetName = control.getAttribute('data-target')
+          const target = document.querySelector(`[data-example="${targetName}"]`)
+          if (!target) return
+
+          const property = control.getAttribute('data-property')
+          if (event.target.checked) target.setAttribute(property, '')
+          else target.removeAttribute(property)
+          document.querySelector(`pre[data-source="${targetName}"]`).textContent = filteredHTML(target)
+        })
+      })
+    </script>
+  </body>
+</html>
