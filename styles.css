@@ -71,7 +71,8 @@ code {
   font-weight: 700;
 }
 
-di-button:not(:defined) {
+di-button:not(:defined),
+di-figure:not(:defined) {
   display: none;
 }
 
