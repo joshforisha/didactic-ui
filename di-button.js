@@ -1,46 +1,54 @@
 const styles = `
 :host {
+  position: relative;
+}
+
+button {
   align-items: center;
   background-color: var(--lighter-gray);
   border: 1px solid var(--dark-gray);
+  color: var(--black);
   cursor: pointer;
   display: inline-flex;
+  font-family: var(--system-fonts);
+  font-size: 0.9em;
   font-weight: 500;
   justify-content: center;
   min-height: var(--min-control-height);
   min-width: var(--min-control-height);
   padding: var(--small) var(--medium);
-  position: relative;
   transition: background-color var(--fast), color var(--slow);
 }
 
-:host(:state(disabled)) {
+button:disabled {
   color: var(--gray);
   cursor: not-allowed;
 }
 
-:host(:state(inverted)) {
+:host(:state(inverted)) button,
+:host(:state(inverted)) .loader {
   background-color: var(--darker-gray);
   color: var(--white);
 }
 
-:host(:state(disabled):state(inverted)) {
+:host(:state(disabled):state(inverted)) button,
+:host(:state(disabled):state(inverted)) .loader {
   color: var(--dark-gray);
 }
 
 .loader {
   align-items: center;
-  background-color: inherit;
+  background-color: var(--lighter-gray);
   display: flex;
-  height: 100%;
+  height: calc(100% - 2px);
   justify-content: center;
-  left: 0;
+  left: 1px;
   opacity: 0;
   pointer-events: none;
   position: absolute;
-  top: 0;
+  top: 1px;
   transition: opacity var(--slow);
-  width: 100%;
+  width: calc(100% - 2px);
 
   svg {
     fill: currentColor;
@@ -48,20 +56,20 @@ const styles = `
   }
 }
 
-:host(:state(busy)) {
+:host(:state(busy)) button {
   cursor: wait;
+}
 
-  .loader {
-    opacity: 1;
-  }
+:host(:state(busy)) .loader {
+  opacity: 1;
 }
 
 @media screen and (hover: hover) {
-  :host(:not(:state(busy)):not(:state(disabled)):hover) {
+  :host(:not(:state(busy)):not(:state(disabled))) button:not(:disabled):hover {
     background-color: var(--light-gray);
   }
 
-  :host(:state(inverted):not(:state(busy)):not(:state(disabled)):hover) {
+  :host(:state(inverted):not(:state(busy)):not(:state(disabled))) button:not(:disabled):hover {
     background-color: var(--dark-gray);
   }
 }
@@ -85,11 +93,13 @@ class DidacticButton extends HTMLElement {
   constructor() {
     super()
 
+    this._internals = this.attachInternals()
+
     this.stylesheet = document.createElement('style')
     this.stylesheet.textContent = styles
 
-    this.content = document.createElement('slot')
-    this.content.innerHTML = this.innerHTML
+    this.button = document.createElement('button')
+    this.button.innerHTML = this.innerHTML
 
     this.loader = document.createElement('div')
     this.loader.classList.add('loader')
@@ -110,19 +120,23 @@ class DidacticButton extends HTMLElement {
       true
     )
 
-    this._internals = this.attachInternals()
-
     const root = this.attachShadow({ mode: 'open' })
-    root.append(this.stylesheet, this.content, this.loader)
+    root.append(this.stylesheet, this.button, this.loader)
   }
 
   attributeChangedCallback(name, oldValue, newValue) {
     switch (name) {
       case 'busy':
-      case 'disabled':
       case 'inverted':
         if (newValue === '') this._internals.states.add(name)
         else this._internals.states.delete(name)
+        break
+      case 'disabled':
+        if (newValue === '') this.button.setAttribute('disabled', '')
+        else this.button.removeAttribute('disabled')
+        break
+      case 'type':
+        this.button.setAttribute(name, newValue)
         break
       default:
         console.warn(

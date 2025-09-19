@@ -61,7 +61,7 @@ button {
   cursor: pointer;
   display: inline-flex;
   font-family: var(--system-fonts);
-  font-size: 1em;
+  font-size: 0.9em;
   font-weight: 500;
   justify-content: center;
   min-height: var(--min-control-height);
