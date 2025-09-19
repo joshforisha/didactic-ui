@@ -50,7 +50,7 @@ blockquote {
 body {
   background-color: var(--white);
   color: var(--black);
-  font-family: var(--system-fonts);
+  font-family: var(--didone-fonts);
   margin: 0;
 }
 
@@ -80,7 +80,7 @@ button {
 
 code {
   font-family: var(--code-fonts);
-  font-size: 0.9em;
+  font-size: 0.8em;
   font-weight: 700;
 }
 
@@ -129,6 +129,7 @@ input[type="checkbox"] {
   appearance: none;
   background-color: var(--lighter-gray);
   border: 1px solid var(--dark-gray);
+  color: var(--black);
   height: 0.75rem;
   width: 0.75rem;
 
@@ -199,6 +200,7 @@ pre {
   margin: var(--medium) auto 0;
   max-width: calc(var(--max-content-width) - 2rem - 2px);
   padding: var(--small) var(--medium);
+  white-space: wrap;
 }
 
 section {
@@ -213,11 +215,6 @@ ul {
   h3 + & {
     margin-top: 0;
   }
-}
-
-.didactic {
-  font-family: var(--didone-fonts);
-  font-size: 1.125em;
 }
 
 @media screen and (hover: hover) {

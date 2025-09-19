@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="./styles.css" />
     <script src="./di-button.js" type="module"></script>
     <script src="./di-figure.js" type="module"></script>
+    <script src="./di-text-input.js" type="module"></script>
   </head>
   <body>
     <style>
@@ -27,7 +28,7 @@
       }
 
       label {
-        align-items: center;
+        align-items: baseline;
         column-gap: var(--tiny);
         cursor: pointer;
         display: inline-flex;
@@ -96,6 +97,21 @@
         <li><code>heading</code>: the displayed primary heading for the figure (<code>"Louie"</code> in example above)</li>
         <li><code>src</code> as the source value for the image</li>
         <li>Content within the tag becomes the description under the <code>heading</code></li>
+      </ul>
+    </section>
+    <hr />
+    <section id="di-text-input">
+      <h2><a href="#di-text-input">di-text-input</a><code><a href="./di-text-input.js">Source</a></code></h2>
+      <p>A <code>di-text-input</code> component enhances the standard <code>&lt;input type="text"&gt;</code> element, adding inherent <code>label</code> styling.</p>
+      <pre data-source="di-text-input"></pre>
+      <div class="row">
+        <di-text-input data-example="di-text-input" label="Example Input" placeholder="Enter a value"></di-text-input>
+      </div>
+      <h3>Attributes</h3>
+      <ul>
+        <li><label><input data-property="disabled" data-target="di-text-input" type="checkbox" /><code>disabled</code></label></li>
+        <li><code>label</code>: a built-in string value for labeling the input field</li>
+        <li><code>placeholder</code> as the default input value</li>
       </ul>
     </section>
     <script>
